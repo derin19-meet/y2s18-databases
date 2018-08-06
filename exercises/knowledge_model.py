@@ -13,5 +13,28 @@ class Knowledge(Base):
 	rating=Column(Integer)
 
 def __repr__(self):
-	return("")
-	
+	return( 
+		"if you want to learn more about :{}\n"
+			"you should look at the article called:{}\n"
+			"and our rating of that article is:{}\n").format(
+				self.knowledge_id,
+				self.topic,
+				self.article,
+				self.rating)
+
+print(repr(Knowledge.__table__))					
+
+x=Knowledge(knowledge_id=1,topic="food", article="food wikipedia", rating=8)
+#y=Knowledge(topic="biology", rating=9)
+#z=Knowledge(topic="dogs", rating=10)
+# print("If you want to learn about this topic, you should look at wikipedia article and the rating we gave to the aricle.")
+
+print(x)
+
+
+
+
+
+
+
+
