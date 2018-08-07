@@ -16,8 +16,8 @@ def add_article(topic,article,rating):
 	session.add(knowledge_object)
 	session.commit()
 
-add_article("food", "what is a genetically modified crop", 8)
-add_article("weather", "rain wikipedia", 5)
+add_article("food", "gmo", 8)
+add_article("weather", "rain", 5)
 add_article("dogs", "dog adoption", 10)
 
 def query_all_articles():
@@ -43,11 +43,17 @@ def delete_all_articles():
 	session.query(Knowledge).delete()
 	session.commit()
 
-delete_all_articles()
-print(query_all_articles())
+#delete_all_articles()
+#print(query_all_articles())
 
-def edit_article_rating():
-	pass
+def edit_article_rating(article,rating):
+	knowledge_objects=session.query(Knowledge).filter_by(article=article).all()
+	for a in knowledge_objects:
+		a.rating=rating
+		session.commit()
+
+edit_article_rating("gmo",2)
+print(query_all_articles())
 
 
 
