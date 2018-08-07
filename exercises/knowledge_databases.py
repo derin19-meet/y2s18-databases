@@ -8,20 +8,46 @@ Base.metadata.create_all(engine)
 DBSession = sessionmaker(bind=engine)
 session = DBSession()
 
-def add_article():
-	pass
+def add_article(topic,article,rating):
+	knowledge_object=Knowledge(
+		topic=topic,
+	    article=article,
+		rating=rating)
+	session.add(knowledge_object)
+	session.commit()
+
+add_article("food", "what is a genetically modified crop", 8)
+add_article("weather", "rain wikipedia", 5)
+add_article("dogs", "dog adoption", 10)
 
 def query_all_articles():
-	pass
+	knowledge=session.query(Knowledge).all()
+	return knowledge
 
-def query_article_by_topic():
-	pass
+print(query_all_articles())
 
-def delete_article_by_topic():
-	pass
+def query_article_by_topic(their_topic):
+	knowledge=session.query(Knowledge).filter_by(topic=their_topic).first()
+	return knowledge
+
+print(query_article_by_topic("dogs"))
+
+def delete_article_by_topic(topic):
+	session.query(Knowledge).filter_by(topic=topic).delete()
+	session.commit()
+
+delete_article_by_topic("weather")	
+print(query_all_articles())
 
 def delete_all_articles():
-	pass
+	session.query(Knowledge).delete()
+	session.commit()
+
+delete_all_articles()
+print(query_all_articles())
 
 def edit_article_rating():
 	pass
+
+
+
